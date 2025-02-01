@@ -155,7 +155,22 @@ if section_80tta > section_80tta_limit:
 #-------------------------------------------------------------------------------------------------------
 
 # Section 10 - Income Exempt from Tax (e.g., Agricultural income, certain allowances, etc.)
-allowances_u_s_10 = 452436  # Allowances under Section 10, such as HRA and other exemptions
+"""
+HRA_Allowance = 294036
+Meal_Voucher = 26400
+Telephone_Reimbursment = 24000
+Attire_Allowance = 30000
+Books_Allowance = 18000
+Professional_Development = 60000
+"""
+HRA_Allowance = 294036
+Meal_Voucher = 0
+Telephone_Reimbursment = 0
+Attire_Allowance = 0
+Books_Allowance = 0
+Professional_Development = 60000
+  # Allowances under Section 10, such as HRA and other exemptions
+allowances_u_s_10 = HRA_Allowance + Meal_Voucher + Telephone_Reimbursment + Attire_Allowance + Books_Allowance + Professional_Development
 allowances_u_s_10_limit = "Varies"  # The limit for Section 10 exemptions depends on the specific allowance
 
 
@@ -292,8 +307,13 @@ gross_salary = 2298197
 standard_deducation_new = 75000
 
 # New Tax Regime Constants
+""" A for 2024
 new_tax_slab_limits = [300000, 700000, 1000000, 1200000, 1500000, float('inf')]  # Slab limits
 new_tax_rates = [0.0, 0.05, 0.10, 0.15, 0.20, 0.30]  # Corresponding rates
+"""
+""" A for 2025"""
+new_tax_slab_limits = [400000, 800000, 1200000, 1600000, 2000000, 2400000, float('inf')]  # Slab limits
+new_tax_rates = [0.0, 0.05, 0.10, 0.15, 0.20,0.25, 0.30]  # Corresponding rates
 
 # Function to calculate tax under the new regime
 def calculate_new_tax(taxable_income):
@@ -317,7 +337,7 @@ taxable_income_new -= standard_deducation_new  # Standard deduction is applicabl
 new_tax = calculate_new_tax(taxable_income_new)
 
 # Apply rebate under Section 87A (for income ≤ ₹7,00,000)
-if taxable_income_new <= 700000:
+if taxable_income_new <= 1200000:
     new_tax = 0  # Full rebate
 
 # Apply 4% health and education cess
